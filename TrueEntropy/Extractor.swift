@@ -134,6 +134,7 @@ class Extractor {
     if (self.chiSquareLimit > 0) && (self.chiSquare(count) > self.chiSquareLimit) {
       entropy = [UInt8]()
     }
+    //soliaxprint("self.result.removeSubrange \(String(format:"%p", self.result)) \(String(format:"%d", count))")
     self.result.removeSubrange(0..<count)
     self.pos -= count
     self.result.append(contentsOf: repeatElement(0, count: self.capacity-self.result.count))

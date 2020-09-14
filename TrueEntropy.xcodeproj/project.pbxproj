@@ -24,7 +24,7 @@
 		A5CBBF2A1C8A83FC00693175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5CBBF291C8A83FC00693175 /* Assets.xcassets */; };
 		A5CBBF2D1C8A83FC00693175 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5CBBF2B1C8A83FC00693175 /* LaunchScreen.storyboard */; };
 		A5EDFE171F861F01003ECDED /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EDFE161F861F01003ECDED /* Extractor.swift */; };
-		FA1B76001F7D7FA2008CA324 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		FA1B76001F7D7FA2008CA324 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		FA30234B1F97813800EEFB63 /* AdvancedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA30234A1F97813800EEFB63 /* AdvancedController.swift */; };
 		FA418FCE1F97EC6D005305F0 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA418FCD1F97EC6D005305F0 /* bg.jpg */; };
 		FA46270E1F84DD3500EE3A3F /* scale.png in Resources */ = {isa = PBXBuildFile; fileRef = FA46270D1F84DD3500EE3A3F /* scale.png */; };
@@ -161,7 +161,6 @@
 				46B0D3CBBDBD2DB1C24E0E9F /* Pods-TrueEntropy.debug.xcconfig */,
 				CFB1D1DF12FBDDE626FDDDFF /* Pods-TrueEntropy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -317,7 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA1B76001F7D7FA2008CA324 /* BuildFile in Sources */,
+				FA1B76001F7D7FA2008CA324 /* (null) in Sources */,
 				A54CF5601F93292500F4B61D /* OneBitExtractor.swift in Sources */,
 				A5EDFE171F861F01003ECDED /* Extractor.swift in Sources */,
 				FA30234B1F97813800EEFB63 /* AdvancedController.swift in Sources */,
@@ -467,12 +466,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = XSS2Q29FAN;
 				INFOPLIST_FILE = TrueEntropy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Sodium/Sodium/libsodium",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randonautica.TrueEntropy;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.fp2.camrngwalk;
 				PRODUCT_NAME = CamRNGWalk;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TrueEntropy-Bridging-Header.h";
@@ -492,12 +492,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = XSS2Q29FAN;
 				INFOPLIST_FILE = TrueEntropy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Sodium/Sodium/libsodium",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.randonautica.TrueEntropy;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.fp2.camrngwalk;
 				PRODUCT_NAME = CamRNGWalk;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TrueEntropy-Bridging-Header.h";

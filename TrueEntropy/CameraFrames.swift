@@ -5,7 +5,8 @@ import Foundation
 import AVFoundation
 
 protocol CameraFramesDelegate {
-  func uploadEntropy(entropy: [UInt8], blockNumber: Int)
+    // soliax - disable protocol (interface?) after renaming uploadEntropy to update2DWalkGraph and changing where it's called from
+  //func uploadEntropy(entropy: [UInt8], blockNumber: Int)
 }
 
 // This class captures raw frames of an iOS camera and passes
@@ -99,7 +100,8 @@ class CameraFrames : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
           let entropy = ctr.getEntropy()    // Lets get it
           if entropy.count == 0 { return }  // Error guard
           blockNumber += 1
-          camFramesDlg?.uploadEntropy(entropy: entropy, blockNumber: blockNumber)
+          // soliax - disable uploadEntropy as the place to update the graph and move the update logic to timeAction
+          //camFramesDlg?.uploadEntropy(entropy: entropy, blockNumber: blockNumber)
           if  !defaults.bool(forKey: "block_amount_unlimited") &&
               blockNumber == defaults.integer(forKey: "block_amount")
           { self.stopSession() } else { processBlock() }

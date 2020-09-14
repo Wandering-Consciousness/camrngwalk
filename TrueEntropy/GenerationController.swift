@@ -134,49 +134,6 @@ class GenerationController: UIViewController, CameraFramesDelegate, UITableViewD
       chartView.notifyDataSetChanged()
       chartView.moveViewToX(self.dataEntries.last!.x)
   }
-  
-  func uploadEntropy(entropy: [UInt8], blockNumber: Int) {
-      // soliax - was crashing here trying to call main UI thread from background thread
-      DispatchQueue.main.async {
-        let bounds: Double = 8
-        let step: Double = 0.1
-        
-        // 2d random walk
-        for i in 0..<entropy.count {
-           var byte = entropy[i]
-
-           for _ in 0..<4 {
-               // x-dimension
-               var currentBit = byte & 0x01
-              if currentBit != 0 && self.xValue < bounds {
-                self.xValue += step
-  //                print("xValue++ \(self.xValue)")
-               } else if self.xValue > -bounds {
-                self.xValue -= step
-  //                print("xValue-- \(self.xValue)")
-               }
-               byte >>= 1
-            
-               // y-dimension
-              currentBit = byte & 0x01
-              if currentBit != 0 && self.yValue < bounds {
-                self.yValue += step
-  //               print("yValue++ \(self.yValue)")
-                } else if self.yValue > -bounds {
-                self.yValue -= step
-  //               print("yValue-- \(self.yValue)")
-              }
-              byte >>= 1
-            
-              let newDataEntry = ChartDataEntry(x: self.xValue,
-                                                y: self.yValue)
-              self.dataEntries.append(newDataEntry)
-              self.chartView.data?.addEntry(newDataEntry, dataSetIndex: 0)
-           }
-        }
-      }
-  }
-  // << graphs
 
   private func addCameraLayer() {
     let cameraFrame = CGRect(x: 10, y: cameraCenterY,  width: cameraRadius * 2, height: cameraRadius * 2)
@@ -264,6 +221,11 @@ class GenerationController: UIViewController, CameraFramesDelegate, UITableViewD
 
     // Row 5: Corrupt pixels
     updateValue(row: 5, val: String(format:"%.2f%%",  col!.corruptPixels))
+    
+    // Update the 2D graph with random walk results
+    if (col!.blockReady()) {
+      update2DWalkGraph()
+    }
   }
 
   func bytesConvertToHexstring(byte : [UInt8]) -> String {
@@ -377,6 +339,51 @@ class GenerationController: UIViewController, CameraFramesDelegate, UITableViewD
       self.settingsTable.cellForRow(at: IndexPath(row: row, section: 0))?.detailTextLabel?.text = val
     }
   }
+  
+  func update2DWalkGraph() {
+      // soliax - was crashing here trying to call main UI thread from background thread
+      DispatchQueue.main.async {
+        let col = self.frames?.collector
+        let entropy: [UInt8] = col!.getEntropy()
+        let bounds: Double = 8
+        let step: Double = 0.1
+
+        // 2d random walk
+        for i in 0..<entropy.count {
+           var byte = entropy[i]
+
+           for _ in 0..<4 {
+               // x-dimension
+               var currentBit = byte & 0x01
+              if currentBit != 0 && self.xValue < bounds {
+                self.xValue += step
+  //                print("xValue++ \(self.xValue)")
+               } else if self.xValue > -bounds {
+                self.xValue -= step
+  //                print("xValue-- \(self.xValue)")
+               }
+               byte >>= 1
+
+               // y-dimension
+              currentBit = byte & 0x01
+              if currentBit != 0 && self.yValue < bounds {
+                self.yValue += step
+  //               print("yValue++ \(self.yValue)")
+                } else if self.yValue > -bounds {
+                self.yValue -= step
+  //               print("yValue-- \(self.yValue)")
+              }
+              byte >>= 1
+
+              let newDataEntry = ChartDataEntry(x: self.xValue,
+                                                y: self.yValue)
+              self.dataEntries.append(newDataEntry)
+              self.chartView.data?.addEntry(newDataEntry, dataSetIndex: 0)
+           }
+        }
+      }
+  }
+  // << graphs
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = settingsTable.dequeueReusableCell(withIdentifier: "keyValue")!
